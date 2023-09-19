@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: scidev
+  namespace: scidev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 400Gi
+  storageClassName: standard-rwo
+  volumeMode: Filesystem
+  # dataSource:
+  #   kind: VolumeSnapshot
+  #   name: scidev-snapshot # optional snapshot to restore
+  # volumeName: scidev-volume # optional static volume name

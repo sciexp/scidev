@@ -1,0 +1,12 @@
+export CONTAINER_BUILDER=podman # path to container management executable
+export GITHUB_USERNAME=username # github username associated to uploading startup scripts as github gists
+export GITHUB_ORG_NAME=sciexp # name of the github org or user containing the github repository with code for development
+export GITHUB_REPO_NAME=scidev # name of a github repository with a conda environment yaml file
+export GITHUB_BRANCH_NAME=main # name of github repository branch to checkout
+export POD_DISK_SIZE=400Gi # size of the PVC to mount to the devpod
+export POD_ACCELERATOR_TYPE=nvidia-tesla-t4 # cluster-specific node selector for accelerator type | nvidia-l4 | nvidia-tesla-a100
+export POD_MIN_CPU=16 # cpu resource request for kubernetes pod
+export POD_MIN_MEM=64Gi # ram resource request for kubernetes pod
+export POD_MAX_CPU=30 # cpu resource limit for kubernetes pod
+export POD_MAX_MEM=96Gi # ram resource limit for kubernetes pod
+export POD_MAX_ACCEL=1 # accelerator resource limit for kubernetes pod
