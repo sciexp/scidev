@@ -68,7 +68,7 @@ runs:
       with:
         context: .
         file: ${{ inputs.containerfile-path }}
-        platforms: linux/amd64,linux/arm64
+        platforms: linux/amd64
         push: ${{ inputs.push-condition }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
