@@ -12,8 +12,7 @@ pull_request_rules:
     conditions:
       - "#approved-reviews-by>=1"
       - check-success=gitguardian
-      - check-success=nixci
-      - check-success=debnix
+      - check-success=scidev
       - base=main
       - label!=work-in-progress
     actions:
@@ -24,5 +23,4 @@ queue_rules:
   - name: default
     conditions:
       - check-success=gitguardian
-      - check-success=nixci
-      - check-success=debnix
+      - check-success=scidev
