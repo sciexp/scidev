@@ -1,4 +1,4 @@
-FROM condaforge/mambaforge:23.1.0-1
+FROM condaforge/mambaforge:23.3.1-1
 LABEL maintainer="scidev team"
 
 ARG CONDA_OVERRIDE_CUDA=12.0
