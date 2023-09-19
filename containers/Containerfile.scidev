@@ -1,0 +1,17 @@
+FROM condaforge/mambaforge:23.1.0-1
+LABEL maintainer="scidev team"
+
+ARG CONDA_OVERRIDE_CUDA=12.0
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib64
+
+WORKDIR /scidev
+COPY . .
+
+LABEL org.opencontainers.image.title="scidev" \
+      org.opencontainers.image.authors="scidev team" \
+      org.opencontainers.image.description="This image contains an example for use with scidev." \
+      org.opencontainers.image.url="https://github.com/sciexp/scidev" \
+      org.opencontainers.image.licenses="AGPL-3.0-only"
+
+RUN mamba env update -n base -f containers/environment.yml
