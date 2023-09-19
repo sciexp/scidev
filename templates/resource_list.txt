@@ -1,0 +1,3 @@
+Namespace               envs   scidev
+Deployment              envs   scidev
+PersistentVolumeClaim   envs   scidev
