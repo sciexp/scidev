@@ -1,0 +1,52 @@
+name: scidev
+
+# generate lock file:
+#   conda-lock --conda mamba --log-level DEBUG -f environment.yml --lockfile conda-lock.yml
+# see conda-lock.yml header for installation instructions:
+#   conda-lock install -n YOURENV --file conda-lock.yml
+
+channels:
+  - conda-forge
+  # https://stackoverflow.com/a/71110028/446907
+  # We want to have a reproducible setup, so we don't want default channels,
+  # which may be different for different users. All required channels should
+  # be listed explicitly here.
+  - nodefaults
+
+dependencies:
+  - python=3.10
+  - pip
+  - pandas
+  - pyro-ppl
+  - pytorch-gpu
+  - pytorch-lightning
+  - matplotlib
+  - torchmetrics
+  - click
+  - colorlog
+  - omegaconf
+  - rich
+  - hydra-core
+  - mlflow
+  - termcolor
+  - tqdm
+  - ipywidgets
+  - zstandard
+  # dev
+  - zsh
+  - tree
+  - htop
+  - make
+  - pytest
+  - hypothesis
+  - xdoctest
+  - dvc
+  - dvc-gs
+  - git
+  - gh
+  - pip:
+      - hydra-zen==0.11.0
+
+## Non-standard section listing target platforms for conda-lock:
+platforms:
+  - linux-64
