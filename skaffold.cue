@@ -11,7 +11,7 @@ config: {
 	deploy: kubectl: defaultNamespace: "scidev"
 	build: artifacts: [{
 		image: "ghcr.io/sciexp/scidev"
-		docker: dockerfile: "containerfiles/Containerfile.scidev"
+		docker: dockerfile: "containers/Containerfile.scidev"
 	}]
 	profiles: [{
 		name: "dev"
