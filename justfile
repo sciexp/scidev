@@ -153,8 +153,8 @@ delete:
 lock:
   conda-lock \
   --conda mamba \
-  --lockfile containerfiles/conda-lock.yml \
-  --virtual-package-spec containerfiles/virtual-packages.yml \
+  --lockfile containers/conda-lock.yml \
+  --virtual-package-spec containers/virtual-packages.yml \
   --log-level DEBUG \
-  -f containerfiles/environment.yml \
+  -f containers/environment.yml \
   -p linux-64

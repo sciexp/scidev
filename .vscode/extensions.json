@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "asdine.cue",
+    "donjayamanne.python-extension-pack",
+    "redhat.vscode-yaml",
+    "sclu1034.justfile",
+    "ms-vscode.makefile-tools",
+    "hashicorp.terraform",
+    "ms-python.black-formatter",
+    "googlecloudtools.cloudcode",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "ms-vsliveshare.vsli",
+    "eamodio.gitlens",
+    "GitHub.vscode-pull-request-github",
+    "github.vscode-github-actions",
+    "GitHub.remotehub",
+    "ms-azuretools.vscode-docker",
+    "ms-toolsai.jupyter",
+    "iterative.dvc",
+    "njzy.stats-bar",
+    "vscode-icons-team.vscode-icons",
+    "poimandres.theme-poimandres"
+  ]
+}

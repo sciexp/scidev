@@ -12,7 +12,7 @@ build:
   artifacts:
   - image: ghcr.io/sciexp/scidev
     docker:
-      dockerfile: containerfiles/Containerfile.scidev
+      dockerfile: containers/Containerfile.scidev
 profiles:
   - name: dev
     deploy:
