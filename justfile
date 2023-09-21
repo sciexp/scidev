@@ -97,6 +97,7 @@ cue:
   cue cmd ls ./templates/...
   cue cmd dump ./templates/... > ./templates/resources.yaml
 
+# Execute cue trim to remove redundant data
 trim:
   cue trim ./templates/... -s
 
@@ -133,12 +134,20 @@ info:
 render:
   skaffold render -t latest
 
-# Run latest container_image in current kube context
-start:
+# Deploy latest container_image in current kube context (invert: terminate)
+deploy:
   skaffold deploy -t latest
 
-# Stop latest container_image in current kube context
+# Stop latest container_image in current kube context (invert: start)
 stop:
+  kubectl scale deployment/{{git_repo_name}} --replicas=0 -n {{git_repo_name}}
+
+# Start latest container_image in current kube context (invert: stop)
+start:
+  kubectl scale deployment/{{git_repo_name}} --replicas=1 -n {{git_repo_name}}
+
+# Delete deployment for container_image in current kube context (invert: deploy)
+terminate:
   kubectl delete -f cluster/resources/deployment.yaml
 
 # Delete all resources created by skaffold
