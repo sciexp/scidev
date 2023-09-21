@@ -1,74 +1,71 @@
-namespace:
-  scidev:
+metadata:
+  name: scidev
+  labels:
+    component: envs
+kind: Namespace
+apiVersion: v1
+---
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: scidev
+  template:
     metadata:
-      name: scidev
       labels:
-        component: envs
-    kind: Namespace
-    apiVersion: v1
-persistentVolumeClaim:
-  scidev:
+        app: scidev
     spec:
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 400Gi
-      storageClassName: standard-rwo
-      volumeMode: Filesystem
-    metadata:
-      name: scidev
-      namespace: scidev
-      labels:
-        component: envs
-    kind: PersistentVolumeClaim
-    apiVersion: v1
-deployment:
-  scidev:
-    spec:
-      replicas: 1
-      strategy:
-        type: RollingUpdate
-        rollingUpdate:
-          maxSurge: 1
-          maxUnavailable: 1
-      selector:
-        matchLabels:
-          app: scidev
-      template:
-        metadata:
-          labels:
-            app: scidev
-        spec:
-          containers:
+      containers:
+        - name: scidev
+          image: ghcr.io/sciexp/scidev
+          imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - sleep infinity
+          resources:
+            requests:
+              cpu: "16"
+              memory: 64Gi
+            limits:
+              cpu: "30"
+              memory: 96Gi
+              nvidia.com/gpu: "1"
+          volumeMounts:
             - name: scidev
-              image: ghcr.io/sciexp/scidev
-              imagePullPolicy: IfNotPresent
-              command:
-                - /bin/sh
-                - -c
-                - sleep infinity
-              resources:
-                requests:
-                  cpu: "16"
-                  memory: 64Gi
-                limits:
-                  cpu: "30"
-                  memory: 96Gi
-                  nvidia.com/gpu: "1"
-              volumeMounts:
-                - name: scidev
-                  mountPath: /workspace
-          nodeSelector:
-            gpu-type: nvidia-tesla-t4
-          volumes:
-            - name: scidev
-              persistentVolumeClaim:
-                claimName: scidev
-    metadata:
-      name: scidev
-      namespace: scidev
-      labels:
-        component: envs
-    kind: Deployment
-    apiVersion: apps/v1
+              mountPath: /workspace
+      nodeSelector:
+        gpu-type: nvidia-tesla-t4
+      volumes:
+        - name: scidev
+          persistentVolumeClaim:
+            claimName: scidev
+metadata:
+  name: scidev
+  namespace: scidev
+  labels:
+    component: envs
+kind: Deployment
+apiVersion: apps/v1
+---
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 400Gi
+  storageClassName: standard-rwo
+  volumeMode: Filesystem
+metadata:
+  name: scidev
+  namespace: scidev
+  labels:
+    component: envs
+kind: PersistentVolumeClaim
+apiVersion: v1
+
