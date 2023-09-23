@@ -39,6 +39,7 @@ spec:
               mountPath: /workspace
       nodeSelector:
         gpu-type: nvidia-tesla-t4
+        spot: "false"
       volumes:
         - name: scidev
           persistentVolumeClaim:
