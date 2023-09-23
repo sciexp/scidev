@@ -21,10 +21,14 @@ deployment: scidev: {
 			metadata: labels: app: "scidev"
 			spec: {
 				containers: [{
-					name:            "dev"
-					image:           "ghcr.io/sciexp/scidev"
+					name:            "scidev"
+					image:           "ghcr.io/sciexp/scipod"
 					imagePullPolicy: "IfNotPresent"
-					command: ["/bin/sh", "-c", "sleep infinity"]
+					command: [
+						"/bin/sh",
+						"-c",
+						"sleep infinity",
+					]
 					resources: {
 						requests: {
 							cpu:    "16"
@@ -41,15 +45,13 @@ deployment: scidev: {
 						mountPath: "/workspace"
 					}]
 				}]
-
 				nodeSelector: {
 					"gpu-type": "nvidia-tesla-t4"
-					"spot":	    "true"
+					spot:       "false"
 				}
-
 				volumes: [{
 					name: "scidev"
-					persistentVolumeClaim: claimName: "scidev-claim"
+					persistentVolumeClaim: claimName: "scidev"
 				}]
 			}
 		}
