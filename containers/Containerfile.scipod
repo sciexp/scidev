@@ -1,0 +1,9 @@
+FROM ghcr.io/sciexp/scidev:latest as conda_stage
+
+FROM ghcr.io/cameronraysmith/nixpod:latest
+
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV LD_LIBRARY_PATH=/usr/local/nvidia/lib64
+
+COPY --from=conda_stage /opt/conda/ /opt/conda/
+COPY --from=conda_stage /scidev/ /scidev/
