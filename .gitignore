@@ -1,2 +1,4 @@
 .direnv
 .envrc
+kaniko-key.json
+docker-config.json
