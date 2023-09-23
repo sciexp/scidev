@@ -46,20 +46,3 @@ jobs:
           containerfile-path: "containers/Containerfile.${{ github.job }}"
           push-condition: ${{ github.event_name != 'pull_request' }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-
-  scipod:
-    needs: [scan,scidev]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v4
-      - name: Tag Build and Push Testing Container
-        uses: ./.github/actions/tag-build-push-container
-        with:
-          registry: ghcr.io
-          image-name: ${{ github.repository_owner }}/${{ github.job }}
-          containerfile-path: "containers/Containerfile.${{ github.job }}"
-          push-condition: ${{ github.event_name != 'pull_request' }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}

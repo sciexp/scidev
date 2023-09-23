@@ -1,4 +1,5 @@
 export CONTAINER_BUILDER=podman # path to container management executable
+export GCP_PROJECT_ID=project-111111 # gcp project id
 export GITHUB_USERNAME=username # github username associated to uploading startup scripts as github gists
 export GITHUB_ORG_NAME=sciexp # name of the github org or user containing the github repository with code for development
 export GITHUB_REPO_NAME=scidev # name of a github repository with a conda environment yaml file

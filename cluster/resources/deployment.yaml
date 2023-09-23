@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: scidev
-          image: ghcr.io/sciexp/scidev
+          image: ghcr.io/sciexp/scipod
           imagePullPolicy: IfNotPresent
           command:
             - /bin/sh

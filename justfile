@@ -23,6 +23,7 @@ builder := env_var_or_default('BUILDER', 'podman')
 container_user := "runner"
 container_home := "/home" / container_user
 container_work := container_home / "work"
+gcp_project_id := env_var_or_default('GCP_PROJECT_ID', 'sciexp')
 git_username := env_var_or_default('GITHUB_USERNAME', 'sciexp')
 git_org_name := env_var_or_default('GITHUB_ORG_NAME', 'sciexp')
 git_repo_name := env_var_or_default('GITHUB_REPO_NAME', 'scidev')
@@ -134,6 +135,10 @@ info:
 render:
   skaffold render -t latest
 
+# Build image with skaffold
+build:
+  skaffold build
+
 # Deploy latest container_image in current kube context (invert: terminate)
 deploy:
   skaffold deploy -t latest
@@ -153,6 +158,26 @@ terminate:
 # Delete all resources created by skaffold
 delete:
   skaffold delete
+
+kaniko_service_account_email := "kaniko-" + git_repo_name + "@" + gcp_project_id + ".iam.gserviceaccount.com"
+
+# Create kaniko service account and download key
+get-kaniko-credentials:
+  gcloud iam service-accounts describe {{kaniko_service_account_email}} || \
+  gcloud iam service-accounts create kaniko-{{git_repo_name}} --display-name="kaniko {{git_repo_name}} service account" && \
+  gcloud projects add-iam-policy-binding {{gcp_project_id}} \
+    --member=serviceAccount:{{kaniko_service_account_email}} \
+    --role=roles/artifactregistry.createOnPushWriter \
+    --role=roles/artifactregistry.repositories.uploadArtifacts
+  gcloud iam service-accounts keys create ./kaniko-key.json \
+  --iam-account {{kaniko_service_account_email}}
+
+# Create container regcred from docker-config.json to use with pullSecretName: regcred if private
+create-regcred:
+  kubectl create secret generic regcred \
+  --from-file=.dockerconfigjson=./docker-config.json \
+  --type=kubernetes.io/dockerconfigjson \
+  --dry-run=client -o yaml > ./regcred-secret.yaml
 
 #---------------------
 # container management
