@@ -25,7 +25,10 @@ deployment: scidev: spec: {
 				mountPath: "/workspace"
 			}]
 		}]
-		nodeSelector: "gpu-type": #GPUNodeSelectorType
+		nodeSelector: {
+			"gpu-type": #GPUNodeSelectorType
+			"spot": #SpotFlag
+		}
 		volumes: [{
 			name: "scidev"
 			persistentVolumeClaim: claimName: "scidev"
@@ -38,3 +41,4 @@ deployment: scidev: spec: {
 #MemoryType:          *"64Gi" | =~"^[2-5]?[0-9]{1,2}Gi$"
 #GPUNumber:           *"1" | =~"^[1-8]$"
 #GPUNodeSelectorType: *"nvidia-tesla-t4" | "nvidia-tesla-a100" | "nvidia-l4" | "" | string
+#SpotFlag:			  *"true" | bool
