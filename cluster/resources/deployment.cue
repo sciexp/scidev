@@ -42,7 +42,10 @@ deployment: scidev: {
 					}]
 				}]
 
-				nodeSelector: "gpu-type": "nvidia-tesla-t4"
+				nodeSelector: {
+					"gpu-type": "nvidia-tesla-t4"
+					"spot":	    "true"
+				}
 
 				volumes: [{
 					name: "scidev"
