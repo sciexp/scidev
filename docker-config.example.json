@@ -1,0 +1,7 @@
+{
+  "auths": {
+    "ghcr.io": {
+      "auth": "`echo "username:ghp_TOKEN" | base64`"
+    }
+  }
+}
