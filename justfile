@@ -192,3 +192,25 @@ lock:
   --log-level DEBUG \
   -f containers/environment.yml \
   -p linux-64
+
+#--------------------
+# pipeline management
+#--------------------
+
+# Install zenml cli
+install-zenml:
+  python3 -m pip install --user -U pipx
+  python3 -m pipx ensurepath
+  pipx completions
+  pipx install zenml[connectors-gcp,gcsfs,connectors-aws,s3fs,mlstacks] --force
+  which zenml
+  zenml version
+  zenml status
+
+# Imperatively regenerate pipeline orchestration configuration
+config-pipelines:
+  ./scripts/config-pipelines.sh
+
+# Export pipeline orchestration stack configuration
+export-pipelines:
+  ./scripts/export-stack.sh
