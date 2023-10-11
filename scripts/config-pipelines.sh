@@ -76,6 +76,24 @@ zenml image-builder register kaniko \
   --kubernetes_namespace="kaniko" \
   --service_account_name="kaniko"
 
+# register data validator
+zenml data-validator describe deepchecks-data-validator || \
+zenml data-validator register deepchecks-data-validator \
+  --flavor=deepchecks
+
+# register experiment-tracker
+zenml secret get mlflow_secret || \
+zenml secret create mlflow_secret -v \
+"{\"tracking_username\": \"${MLFLOW_TRACKING_USERNAME}\", \"tracking_password\": \"${MLFLOW_TRACKING_PASSWORD}\"}"
+
+zenml experiment-tracker describe mlflow || \
+zenml experiment-tracker register mlflow \
+  --flavor=mlflow \
+  --tracking_insecure_tls=true \
+  --tracking_uri="${MLFLOW_TRACKING_URI}" \
+  --tracking_username="{{mlflow_secret.tracking_username}}" \
+  --tracking_password="{{mlflow_secret.tracking_password}}"
+
 # register pipeline orchestrator
 zenml orchestrator describe kubeflow || \
 zenml orchestrator register kubeflow \
@@ -89,9 +107,11 @@ zenml orchestrator connect kubeflow --connector kubeflow-cluster
 
 zenml stack describe "${ZENML_STACK_NAME}" || \
 zenml stack register "${ZENML_STACK_NAME}" \
-  --orchestrator=kubeflow \
   --container_registry=gcp-registry \
   --artifact-store=gcp-store \
+  --data_validator=deepchecks_data_validator \
+  --orchestrator=kubeflow \
+  --experiment_tracker=mlflow \
   --image_builder=kaniko
 
 zenml stack set "${ZENML_STACK_NAME}"

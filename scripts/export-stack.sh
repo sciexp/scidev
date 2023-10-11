@@ -23,6 +23,8 @@ zenml service-connector describe gcp-multi-type
 zenml container-registry describe gcp-registry
 zenml artifact-store describe gcp-store
 zenml image-builder describe kaniko
+zenml data-validator describe deepchecks-data-validator
+zenml experiment-tracker describe mlflow
 zenml orchestrator describe kubeflow
 zenml stack describe "${ZENML_STACK_NAME}"
 
