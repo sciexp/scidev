@@ -4,3 +4,4 @@ kaniko-key.json
 docker-config.json
 google-credentials.json
 scripts/stack-config.yaml
+untracked/
