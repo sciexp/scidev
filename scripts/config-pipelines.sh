@@ -94,6 +94,18 @@ zenml experiment-tracker register mlflow \
   --tracking_username="{{mlflow_secret.tracking_username}}" \
   --tracking_password="{{mlflow_secret.tracking_password}}"
 
+# register model-registry
+# https://github.com/zenml-io/zenml/blame/0.44.3/docs/book/stacks-and-components/component-guide/model-registries/mlflow.md#L62-L63
+zenml model-registry describe mlflow || \
+zenml model-registry register mlflow \
+  --flavor=mlflow
+
+# register model-deployer
+# https://github.com/zenml-io/zenml/blame/0.44.3/docs/book/stacks-and-components/component-guide/model-deployers/mlflow.md#L13-L14
+zenml model-deployer describe mlflow || \
+zenml model-deployer register mlflow \
+  --flavor=mlflow
+
 # register pipeline orchestrator
 zenml orchestrator describe kubeflow || \
 zenml orchestrator register kubeflow \
@@ -110,8 +122,11 @@ zenml stack register "${ZENML_STACK_NAME}" \
   --container_registry=gcp-registry \
   --artifact-store=gcp-store \
   --data_validator=deepchecks_data_validator \
-  --orchestrator=kubeflow \
   --experiment_tracker=mlflow \
+  --model_registry=mlflow \
+  --model_deployer=mlflow \
+  --experiment_tracker=mlflow \
+  --orchestrator=kubeflow \
   --image_builder=kaniko
 
 zenml stack set "${ZENML_STACK_NAME}"
