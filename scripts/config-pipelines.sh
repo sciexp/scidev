@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -Eeuo pipefail
-set -x
+# set -x
 
 #------
 # setup
@@ -121,12 +121,11 @@ zenml stack describe "${ZENML_STACK_NAME}" || \
 zenml stack register "${ZENML_STACK_NAME}" \
   --container_registry=gcp-registry \
   --artifact-store=gcp-store \
+  --image_builder=kaniko \
   --data_validator=deepchecks_data_validator \
   --experiment_tracker=mlflow \
   --model_registry=mlflow \
   --model_deployer=mlflow \
-  --experiment_tracker=mlflow \
-  --orchestrator=kubeflow \
-  --image_builder=kaniko
+  --orchestrator=kubeflow
 
 zenml stack set "${ZENML_STACK_NAME}"
