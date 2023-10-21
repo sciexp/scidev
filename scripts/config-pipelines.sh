@@ -74,7 +74,9 @@ zenml image-builder register kaniko \
   --flavor=kaniko \
   --kubernetes_context="${ZENML_KUBE_CONTEXT}" \
   --kubernetes_namespace="kaniko" \
-  --service_account_name="kaniko"
+  --service_account_name="kaniko" \
+  --executor_args='["--compressed-caching=false"]'
+
 
 # register data validator
 zenml data-validator describe deepchecks-data-validator || \
@@ -129,3 +131,17 @@ zenml stack register "${ZENML_STACK_NAME}" \
   --orchestrator=kubeflow
 
 zenml stack set "${ZENML_STACK_NAME}"
+
+# to reregister a component, such as image builder
+# first remove the component from the stack
+#
+# zenml stack remove-component -i "${ZENML_STACK_NAME}"
+#
+# then delete the component
+#
+# zenml image-builder delete kaniko
+#
+# now execute the relevant component registration command 
+# again and then add it back to the stack
+#
+# zenml stack update -i kaniko "${ZENML_STACK_NAME}"
