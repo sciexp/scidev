@@ -1,5 +1,5 @@
 .direnv
-.envrc
+.env
 kaniko-key.json
 docker-config.json
 google-credentials.json
