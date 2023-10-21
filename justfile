@@ -202,8 +202,9 @@ install-zenml:
   pip install -q zenml[templates,connectors-gcp,gcsfs,connectors-aws,s3fs,mlstacks]
   which zenml
   zenml version
+  zenml integration install -y kaniko github mlflow kubeflow deepchecks gcp
+  zenml integration list
   zenml status
-  zenml integration install -y github
 
 # Imperatively regenerate pipeline orchestration configuration
 config-pipelines:
