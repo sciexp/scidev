@@ -104,9 +104,9 @@ zenml model-registry register mlflow \
 
 # register model-deployer
 # https://github.com/zenml-io/zenml/blame/0.44.3/docs/book/stacks-and-components/component-guide/model-deployers/mlflow.md#L13-L14
-zenml model-deployer describe mlflow || \
-zenml model-deployer register mlflow \
-  --flavor=mlflow
+# zenml model-deployer describe mlflow || \
+# zenml model-deployer register mlflow \
+#   --flavor=mlflow
 
 # register pipeline orchestrator
 zenml orchestrator describe kubeflow || \
@@ -127,8 +127,8 @@ zenml stack register "${ZENML_STACK_NAME}" \
   --data_validator=deepchecks_data_validator \
   --experiment_tracker=mlflow \
   --model_registry=mlflow \
-  --model_deployer=mlflow \
   --orchestrator=kubeflow
+  # --model_deployer=mlflow \
 
 zenml stack set "${ZENML_STACK_NAME}"
 
