@@ -28,6 +28,7 @@ git_username := env_var_or_default('GITHUB_USERNAME', 'sciexp')
 git_org_name := env_var_or_default('GITHUB_ORG_NAME', 'sciexp')
 git_repo_name := env_var_or_default('GITHUB_REPO_NAME', 'scidev')
 git_branch_name := env_var_or_default('GITHUB_BRANCH_NAME', 'master')
+github_pat := env_var_or_default('GITHUB_PAT', '')
 container_registry := "ghcr.io/" + git_org_name + "/"
 pod_accelerator_type := env_var_or_default('POD_ACCELERATOR_TYPE', 'nvidia-tesla-t4')
 accelerator_node_selector := "gpu-type=" + pod_accelerator_type
@@ -193,23 +194,3 @@ lock:
   -f containers/environment.yml \
   -p linux-64
 
-#--------------------
-# pipeline management
-#--------------------
-
-# Install zenml library/cli in the current (virtual) environment
-install-zenml:
-  pip install -q zenml[templates,connectors-gcp,gcsfs,connectors-aws,s3fs,mlstacks]
-  which zenml
-  zenml version
-  zenml integration install -y kaniko github mlflow kubeflow deepchecks gcp
-  zenml integration list
-  zenml status
-
-# Imperatively regenerate pipeline orchestration configuration
-config-pipelines:
-  ./scripts/config-pipelines.sh
-
-# Export pipeline orchestration stack configuration
-export-pipelines:
-  ./scripts/export-stack.sh

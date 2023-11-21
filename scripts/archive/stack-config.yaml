@@ -1,0 +1,53 @@
+components:
+  artifact_store:
+    configuration:
+      path: gs://project-zen-cluster
+    flavor: gcp
+    name: gcp-store
+    type: artifact_store
+  container_registry:
+    configuration:
+      uri: us.gcr.io/project/pipelines
+    flavor: gcp
+    name: gcp-registry
+    type: container_registry
+  data_validator:
+    configuration: {}
+    flavor: deepchecks
+    name: deepchecks-data-validator
+    type: data_validator
+  experiment_tracker:
+    configuration:
+      tracking_insecure_tls: 'true'
+      tracking_password: '{{mlflow_secret.tracking_password}}'
+      tracking_uri: https://mlflow.cluster.sciexp.net
+      tracking_username: '{{mlflow_secret.tracking_username}}'
+    flavor: mlflow
+    name: mlflow
+    type: experiment_tracker
+  image_builder:
+    configuration:
+      kubernetes_context: gke_project_us-central1_cluster
+      kubernetes_namespace: kaniko
+      service_account_name: kaniko
+    flavor: kaniko
+    name: kaniko
+    type: image_builder
+  model_deployer:
+    configuration: {}
+    flavor: mlflow
+    name: mlflow
+    type: model_deployer
+  model_registry:
+    configuration: {}
+    flavor: mlflow
+    name: mlflow
+    type: model_registry
+  orchestrator:
+    configuration:
+      kubeflow_hostname: https://kf.cluster.sciexp.net/pipeline
+    flavor: kubeflow
+    name: kubeflow
+    type: orchestrator
+stack_name: pyro
+zen_version: 0.45.2

@@ -1,0 +1,30 @@
+#--------------------
+# pipeline management
+#--------------------
+
+# Install zen library/cli in the current (virtual) environment
+install-zen:
+  pip install -q zen[templates,connectors-gcp,gcsfs,connectors-aws,s3fs,mlstacks]
+  which zen
+  zen version
+  zen integration install -y kaniko github mlflow kubeflow deepchecks gcp
+  zen integration list
+  zen status
+
+# Register github repository with zen
+register-repo:
+  zen code-repository register {{git_repo_name}} \
+  --type=github \
+  --url=https://github.com \
+  --owner={{git_org_name}} \
+  --repository={{git_repo_name}} \
+  --token={{github_pat}}
+
+
+# Imperatively regenerate pipeline orchestration configuration
+config-pipelines:
+  ./scripts/config-pipelines.sh
+
+# Export pipeline orchestration stack configuration
+export-pipelines:
+  ./scripts/export-stack.sh
