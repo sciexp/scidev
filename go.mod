@@ -1,6 +1,6 @@
 module github.com/sciexp/scidev
 
-go 1.21.0
+go 1.22.0
 
 require (
 	github.com/GoogleContainerTools/skaffold/v2 v2.7.1 // indirect
