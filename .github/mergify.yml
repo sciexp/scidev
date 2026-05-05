@@ -21,6 +21,6 @@ pull_request_rules:
         name: default
 queue_rules:
   - name: default
-    conditions:
+    merge_conditions:
       - check-success=gitguardian
       - check-success=scidev
